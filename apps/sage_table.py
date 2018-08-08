@@ -18,81 +18,16 @@ import io
 import urllib
 
 from app import app
+from header import header
 
-# Launch the application:
-#app = dash.Dash()
-
+#import data
 file = os.path.abspath("./data/title.csv")
 df = pd.read_csv(file, index_col=0)
 
-# Boostrap CSS.
-#app.css.append_css({'external_url': 'https://cdn.rawgit.com/plotly/dash-app-stylesheets/2d266c578d2a6e8850ebce48fdb52759b2aef506/stylesheet-oil-and-gas.css'})  # noqa: E501
-
-# Create a Dash layout that contains input components
-# and at least one output. Assign IDs to each component:
 layout = html.Div([
-    html.Div(className='row',
-             style={'backgroundColor': 'rgb(234, 249, 219)',
-                    'color':'white', 'padding': 25},
-             children=[html.Div(className='nine columns',
-                                children=[
-                                    html.H1("Sage - entities and titles",
-                                            style={'paddingBottom':0, 'font-weight':'bold'}),
-                                    html.H6("Exploration of names and sources using Plotly Dash",
-                                            style={'paddingTop':0, 'paddingBottom':0, 'font-size':'100%'}),
-                                    # html.P(children=[html.A('GitHub',
-                                    #                          href='https://github.com/DistrictDataLabs/sage',
-                                    #                          style={'color': 'black', 'textAlign': 'right'})])
-                                ]),
-                        html.Div(className='three columns',
-                                 style={'float': 'right', 'paddingLeft': 20, 'padding-top': 20},
-                                 children=[
-                                    html.Img(src='https://static1.squarespace.com/static/55fdfa38e4b07a55be8680a4/t/55ff389ae4b0af0b2a73db12/1531951609241/?format=1500w',
-                                             style={'maxWidth':'100%'}),
-                        ])
-    ]),
+        header,
         html.Div([
-            html.P('switch between apps',
-                style={'position': 'absolute',
-                        'background-color': '#f9f9f9c7',
-                        'align-items': 'center',
-                        'width': '100%',
-                        'display': 'flex',
-                        'justify-content': 'center',
-                        })],className='container'),
-
-        #links to apps
         html.Div([
-        html.Div([dcc.Link('Scatter', href='/apps/app1')],className='three columns'),
-        html.Div([dcc.Link('Network Viz', href='/apps/app2')],className='three columns'),
-        html.Div([dcc.Link('Sage Table', href='/apps/sage_table')],className='three columns'),
-        html.Div([dcc.Link('Sage Home', href='/')],className='three columns')
-        ],className='container',style={'padding': 25, 'color':'#39536B'}),
-#########PAGE#########
-    # html.Div(
-    #     [
-    #         html.H1(
-    #             'Sage in Dash',
-    #             style={'font-family': 'Helvetica',
-    #                    "margin-top": "25",
-    #                    "margin-bottom": "0"},
-    #             className='eight columns',
-    #         ),
-    #         html.P(
-    #             'exploration of Sage in Dash',
-    #             style={'font-family': 'Helvetica',
-    #                    "font-size": "120%",
-    #                    "width": "80%"},
-    #             className='eight columns',
-    #         ),
-    #     ],
-    #     className='row'
-    # ),
-
-html.Div(
-    [
-        html.Div(
-            [
                 dcc.Graph(id='pie-graph',
                         #  style={'margin-top': '20'},
                           figure={'data':[
